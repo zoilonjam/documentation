@@ -1,18 +1,21 @@
-Mountain View College ALUMNI MANAGEMENT SYSTEM
+## Mountain View College ALUMNI MANAGEMENT SYSTEM
 
-Features & Functionalities Master Documentation
+# Features & Functionalities Master Documentation
 
-1. SYSTEM OVERVIEW
+# 1. SYSTEM OVERVIEW
 
 The Alumni Management System is a unified, enterprise-grade web application engineered for higher education institutions to manage the post-graduation lifecycle. The platform bridges graduating students, verified alumni, and administrative officers into a single secure ecosystem.
-Core Objectives:
+
+# Core Objectives:
+
 Automated Identity Verification: Replaces physical campus visits and paper document validation with email OTP verification, Cloudinary proof document vaults, and administrative audit consoles.
+
 Digital Yearbook & Multimedia Preservation: Replaces static paper yearbooks with digital batch catalogs, interactive 5-slide "Yearbook Wrapped" stories, and social Memory Walls.
 Event Logistics & Cryptographic Check-Ins: Streamlines alumni reunions, homecomings, and webinars via 1-click RSVPs, mobile cryptographic QR passes, and live web camera check-in scanners.
 Centralized Support Ticketing: Deploys a searchable FAQ knowledge base and a multi-threaded support ticket engine (TCK-XXXXX).
 Data Governance & Privacy Protection: Protects graduate information through NextAuth authentication, edge route middleware (middleware.ts), and server-enforced data masking (isPhotoPublic, isContactPublic).
 
- Access Control Matrix (RBAC)
+ # Access Control Matrix (RBAC)
 
 | Persona / Role | Role Code | Permitted Route Groups | Default Landing Path | Unauthenticated Redirection |
 |---|---|---|---|---|
@@ -21,7 +24,7 @@ Data Governance & Privacy Protection: Protects graduate information through Next
 | **Verified Student / Alumni** | `STUDENT` | Dashboard (`/dashboard`), Profile (`/profile`), Interactive Yearbook (`/yearbook`), Events (`/events`), News & Announcements (`/news`), Help Center (`/help`) | `/dashboard` | Redirected to `/` |
 | **Alumni Officer** | `ALUMNI_OFFICER` | Officer Dashboard (`/officer/dashboard`), Verification Queue (`/officer/alumni-verification`), Master Directories (`/officer/alumni`, `/officer/graduates`, `/officer/faculty`), Event Manager & Live Scanner (`/officer/events`), Yearbook Manager (`/officer/yearbook`), Help Desk (`/officer/help-desk`), FAQ CMS (`/officer/faq-management`), Announcements (`/officer/announcements`) | `/officer/dashboard` | Redirected to `/dashboard` if accessing student routes |
 
-3. SYSTEM MODULES OVERVIEW
+# 3. SYSTEM MODULES OVERVIEW
    
 Module 1: Alumni Verification & Self-Registration: Email OTP validation, 3-step application wizard, Cloudinary document upload vault, tracking lookup, and officer verification audit queue.
 
@@ -35,8 +38,10 @@ Module 5: Support Help Desk & Knowledge Base: Searchable FAQ knowledge base (Faq
 
 Module 6: System Announcements & Real-Time Notifications: Hero banner CMS (Announcement), banner color customizer, and WebSocket real-time alerts (Notification).
 
-5. DETAILED FEATURES AND FUNCTIONALITIES
-MODULE 1: ALUMNI VERIFICATION & SELF-REGISTRATION MODULE
+## 5. DETAILED FEATURES AND FUNCTIONALITIES
+
+# MODULE 1: ALUMNI VERIFICATION & SELF-REGISTRATION MODULE
+
 Feature 1.1: Email One-Time Password (OTP) Pre-Verification
 Description: Validates applicant email inbox ownership prior to unlocking the registration wizard.
 Functionality: Dispatches a 6-digit numeric OTP to the applicant's email address and verifies the code entry to unlock Step 2.
@@ -59,7 +64,8 @@ Feature 1.3: Registration Request Status Tracking & Revision Resubmission
 Description: Enables applicants to monitor request progress and upload revised documents if requested by officers.
 Functionality: Allows applicants to check their registration status using their registered email address. The system displays the current application status, officer notes or feedback, and provides an option to upload revised documents when revisions are requested. 
 User/Actor: Applicant / Unverified Graduate
-System Behavior: The system retrieves the applicant’s registration record using their registered email address. If the application status is Revision Requested, the system enables the document upload function. Once the applicant submits the revised documents, the application is updated and its status is reset to Pending for further review. 
+System Behavior: The system retrieves the applicant’s registration record using their registered email address. If the application status is Revision Requested, the system enables the document upload function. Once the applicant submits the revised documents, the application is updated and its status is reset to Pending for further review.
+
 Inputs and Outputs:
 
 Inputs: Registered Email, Revised Document Files.
@@ -80,9 +86,10 @@ Rules or Restrictions: Restricted to ALUMNI_OFFICER. Approval requires linking a
 Related Features: User Model, Student/Alumni Models, Nodemailer Service.
 
 
-MODULE 2: AUTHENTICATION & PROFILE GOVERNANCE MODULE
+# MODULE 2: AUTHENTICATION & PROFILE GOVERNANCE MODULE
 
-Feature 2.1: Role-Based Authentication 
+# Feature 2.1: Role-Based Authentication
+
 Description: Provides secure authentication methods based on the user's assigned role. Public Users can authenticate through Google Sign-In, while Alumni and Alumni Officers authenticate using their assigned unique username and password. 
 Functionality: Provides separate sign-in gateways for Alumni and Alumni Officers, allowing users to securely authenticate and access system features based on their assigned roles and permissions. 
 User/Actor: Public User, Alumni and Alumni Officer
@@ -96,7 +103,7 @@ Inputs: Username/Email and Password for Alumni and Alumni Officers; Google accou
 Outputs: Secure authenticated session and role-based access to the appropriate system interface. 
 Rules or Restrictions: Access to system features is restricted based on the user's assigned role. Alumni and Public Users cannot access administrative functions, which are exclusively available to authorized Alumni Officers. 
 
-Feature 2.2: First-Time Alumni Onboarding 
+# Feature 2.2: First-Time Alumni Onboarding 
 
 Description: Guides newly verified graduates through the required onboarding process upon their first login. The onboarding allows users to provide a personal quote, which is displayed in the Interactive Yearbook. 
 Functionality: Allows newly verified graduates to submit their personal quote during their first-time onboarding. 
@@ -108,9 +115,10 @@ Outputs: Saved personal quote and completed onboarding status.
 Rules or Restrictions: Onboarding is required upon the user's first login.
 
 
-MODULE 3: DIGITAL YEARBOOK & INTERACTIVE WRAPPED ENGINE
+# MODULE 3: DIGITAL YEARBOOK & INTERACTIVE WRAPPED ENGINE
 
-Feature 3.1: Batch Yearbook Catalog & Flipbook / Grid Viewer
+# Feature 3.1: Batch Yearbook Catalog & Flipbook / Grid Viewer
+
 Description: Displays graduation yearbooks categorized by batch year in responsive grid cards or interactive flipbook mode.
 Functionality: Allows users to select a graduation batch, browse the corresponding graduate roster, filter graduates by department, and switch between Grid View and Flipbook View. 
 User/Actor: Public Guest, Alumni, Alumni Officer 
@@ -119,7 +127,9 @@ Inputs and Outputs:
 Inputs: Graduation Batch Selection, View Mode Selection (Grid/Flipbook), and Department Filter. 
 Outputs: Digital Yearbook Gallery, Graduate Records, and Interactive Yearbook Pages. 
 Rules or Restrictions: Only yearbooks that have been approved for publication are visible to Public Users and Alumni. Graduate information and photographs are displayed according to the individual's configured privacy settings. 
-Feature 3.2: Multi-Slide Interactive "Yearbook Wrapped" Story Experience
+
+# Feature 3.2: Multi-Slide Interactive "Yearbook Wrapped" Story Experience
+
 Description: Plays an animated, interactive slide presentation that tells the story of a graduating batch through milestones, statistics, memories, photos, achievements, and historical highlights. 
 Functionality: The system presents a customizable sequence of slides based on the available yearbook content. Administrators can add, remove, rearrange, or customize slides to create a unique "Yearbook Wrapped" experience for each batch. 
 User/Actor: Public Guest, Alumni
@@ -129,7 +139,7 @@ Inputs: Play Wrapped Action, Slide Controls, Configured Wrapped Story Content.
 Outputs: Animated Story Slides, Batch Analytics Summary.
 Rules or Restrictions: Officers can add, remove, edit, and rearrange slides and customize their content based on the batch's needs. The number, order, and type of slides are not strictly fixed. 
 
-Feature 3.3: Graduate Personal Entry Customization
+# Feature 3.3: Graduate Personal Entry Customization
 
 Description: Allows graduates to personalize their yearbook profile by adding or updating their quotes.
 Functionality: Form on /yearbook/profile capturing personal quote.
@@ -139,7 +149,8 @@ Inputs and Outputs:
 Inputs: Quote
 Outputs: Saved YearbookEntry Record.
 Rules or Restrictions: Quotes limited to 280 characters. Edits require officer approval before display.
-Feature 3.4: Administrative Yearbook Moderation & Master Publishing Console
+# Feature 3.4: Administrative Yearbook Moderation & Master Publishing Console
+
 Description: Provides officers with tools to create yearbooks, configure Wrapped slides, and toggle publication.
 Functionality: Provides a management page where officers can add and manage yearbook content, customize the Wrapped Story slides, and publish the completed yearbook for the batch. 
 User/Actor: Alumni Officer.
@@ -150,9 +161,10 @@ Outputs: Saved Yearbook Records, Published Live Batch.
 Rules or Restrictions: Restricted to ALUMNI_OFFICER. Batch year must be unique.
 
 
-MODULE 4: EVENT MANAGEMENT, RSVP & QR ATTENDANCE MODULE
+# MODULE 4: EVENT MANAGEMENT, RSVP & QR ATTENDANCE MODULE
 
-Feature 4.1: Audience-Targeted Event Publishing & Proposal Submission
+# Feature 4.1: Audience-Targeted Event Publishing & Proposal Submission
+
 Description: Enables student leads and officers to submit event proposals targeting specific audience cohorts (ALL, DEPARTMENT, SECTION, GRAD_YEAR).
 Functionality: Form on /officer/events collecting title, description, category, purpose, date, time, venue, target audience, organizer info, and cover image.
 User/Actor: Alumni/Student Lead , Alumni Officer
@@ -161,7 +173,9 @@ Inputs and Outputs:
 Inputs: Title, Description, Date, Time, Venue, Target Audience, Organizer Info, Cover File.
 Outputs: Newly Created Event Record with a Pending status and a corresponding entry in the event history. 
 Rules or Restrictions: The event date must be scheduled for a future date. The event may be designated for all alumni, a specific section, department, or graduating year.
-Feature 4.2: Event Proposal Multi-Level Audit Review & Document Vault (EventDocument)
+
+# Feature 4.2: Event Proposal Multi-Level Audit Review & Document Vault (EventDocument)
+
 Description: Audit console for officers to review event proposals, inspect budget spreadsheets/letters, and execute approvals.
 Functionality: Allows officers to review pending event submissions through the event management page, including the attached supporting documents such as the budget plan, event proposal, and letter of request. Officers can approve the event, request revisions, or reject the submission. 
 User/Actor: Alumni Officer
@@ -171,7 +185,7 @@ Inputs: Review decision, reviewer’s notes or reason for requesting revisions o
 Outputs:Updated event record, documented review history, and publication of approved events. 
 Rules or Restrictions: Access is limited to authorized alumni officers. All changes to an event’s status are recorded in the event history for proper documentation and accountability. 
 
-Feature 4.3: 1-Click RSVP & Cryptographic QR Pass Generation
+# Feature 4.3: 1-Click RSVP & Cryptographic QR Pass Generation
 
 Description: Registers alumni for upcoming events with a single click, issuing a cryptographic mobile QR code pass.
 Functionality: When an eligible graduate selects “RSVP Now” on the Events page, the system records their attendance and provides a unique QR code as their event pass. 
@@ -194,8 +208,10 @@ Outputs:Recorded event attendance and a notification confirming a successful or 
 Rules or Restrictions: Each graduate can be checked in only once per event. The system prevents duplicate attendance records for the same graduate and event.
 
 
-MODULE 5: SUPPORT HELP DESK & KNOWLEDGE BASE MODULE
-Feature 5.1: Searchable FAQ Knowledge Base (FaqItem)
+# MODULE 5: SUPPORT HELP DESK & KNOWLEDGE BASE MODULE
+
+# Feature 5.1: Searchable FAQ Knowledge Base (FaqItem)
+
 Description: Self-service knowledge center where visitors search indexed frequently asked questions by category.
 Functionality: Search FAQs on /help categorized into Account, Events, General, Technical, Yearbook, and Other, featuring accordion answer expanders.
 User/Actor: Public Guest, Alumni, Alumni Officer
@@ -205,7 +221,7 @@ Inputs: Search Keyword Query, Category Selection.
 Outputs: Filtered FAQ Accordion List.
 Rules or Restrictions: Only FAQs that have been approved for publication are visible to users. 
 
-Feature 5.2: Support Ticket Submission & Reference Tracking (TCK-XXXXX)
+# Feature 5.2: Support Ticket Submission & Reference Tracking (TCK-XXXXX)
 
 Description: Enables users to submit support tickets when FAQs do not resolve their issue, generating a unique tracking reference code (TCK-XXXXX).
 Functionality: Form collects User Type, Category, Name, Email, Phone, and Description. Generates reference code (e.g. TCK-10293).
@@ -218,7 +234,9 @@ Inputs and Outputs:
 Inputs: User Type, Category,Name, Email, Phone Number, and Description. 
 Outputs: Submitted Support Request and a unique tracking reference code (TCK-XXXXX). 
 Rules or Restrictions: Requires authenticated account session to prevent ticket spam. ticketNumber must be globally unique.
-Feature 5.3: Multi-Threaded Ticket Messaging & Officer Help Desk Console
+
+# Feature 5.3: Multi-Threaded Ticket Messaging & Officer Help Desk Console
+
 Description: Facilitates conversation threads between users and officers, managing ticket status lifecycle (OPEN, IN_PROGRESS, RESOLVED, CLOSED).
 Functionality: Allows users to search for their support requests using the tracking number and email address, view responses, and send additional messages. Officers can manage support requests through the Help Desk by assigning them to an officer, responding to users, and updating the status of each request. 
 User/Actor: Alumni, Alumni Officer 
@@ -229,9 +247,10 @@ Outputs: Recorded Support Response, Updated Ticket Status, and Email Notificatio
 Rules or Restrictions: Only assigned officers can alter ticket status. Messages rendered chronologically.
 
 
-MODULE 6: SYSTEM ANNOUNCEMENTS & REAL-TIME NOTIFICATIONS
+# MODULE 6: SYSTEM ANNOUNCEMENTS & REAL-TIME NOTIFICATIONS
 
-Feature 6.1: Announcement 
+# Feature 6.1: Announcement 
+
 Description: Allows officers to publish styled announcements with custom color themes, and cover graphics.
 Functionality: Provides a form on /officer/announcements where officers can create and manage announcements by entering the title and content, uploading a cover image, and customizing the banner and date badge colors. 
 User/Actor: Alumni Officer
@@ -250,17 +269,15 @@ Outputs: Created notification record, real-time notification alert, and updated 
 Rules or Restrictions: Notifications are visible only to the specific user they are intended for. 
 
 
-
-
-5. BUSINESS RULES AND SYSTEM STATE MACHINES
+# 5. BUSINESS RULES AND SYSTEM STATE MACHINES
 5.1 Registration Request Audit State Machine
-   
+-   
 5.2 Event Proposal Approval State Machine
-  
+-
 5.3 Support Ticket Lifecycle
-
+-
    
-5.4 Relational Database Entity Reference (Prisma Schema)
+# 5.4 Relational Database Entity Reference (Prisma Schema)
 
 | Database Entity | Primary Key / Index | Core Fields & Data Types | Relationships |
 |---|---|---|---|
@@ -282,18 +299,22 @@ Rules or Restrictions: Notifications are visible only to the specific user they 
 
 
 
-6. SYSTEM VALIDATIONS, EDGE CASES & NOTIFICATIONS
+# 6. SYSTEM VALIDATIONS, EDGE CASES & NOTIFICATIONS
    
-Unverified Route Protection:
+# Unverified Route Protection:
+
 Access to protected pages such as the dashboard, profile, and officer pages is restricted to authenticated and authorized users. Users who are not logged in or do not have the required access are redirected to the appropriate page.
 
-Duplicate RSVP Safeguard:
+# Duplicate RSVP Safeguard:
+
 Each graduate may register for an event only once. If a graduate attempts to register again, the system prevents a duplicate registration and displays their existing event pass.
 
-QR Code Replay and Double-Scanning Prevention:
+# QR Code Replay and Double-Scanning Prevention:
+
 Each event pass can be used for attendance verification only once. If the same pass is scanned again, the system informs the officer that attendance has already been recorded and displays the original check-in details.
 
-OTP Expiration Window:
+# OTP Expiration Window:
+
 Registration verification codes are valid for 10 minutes. Expired codes are rejected, and the user is prompted to request a new verification code.
 
 Data Privacy Protection:
@@ -301,23 +322,40 @@ Data Privacy Protection:
 Users who choose to keep their contact information private will have their email address, contact number, and address hidden from public directories.
 Users who choose to keep their photo private will have their profile photo hidden and replaced with a neutral placeholder in public yearbook displays.
 
-First-Time Setup
+## Tech Stack
 
-Prerequisites
+| Technology | Version |
+|---|---|
+| Next.js | 16 (App Router) |
+| Prisma | 7 |
+| MySQL | 8.4.3 |
+| Laragon | Local Development |
+| NextAuth.js | v5 (Beta) |
+| Recharts | Latest |
+| Framer Motion | Latest |
+| Cloudinary | Latest |
+| Tailwind CSS | v4 |
+| Node.js | 22.13.0 |
+
+# First-Time Setup
+
+# Prerequisites:
+
 Node.js 18+ (with npm)
 MySQL 8.0+ (via Laragon, XAMPP, or standalone)
 Step-by-step
-1. Clone and install dependencies
+
+# 1. Clone and install dependencies
 cd alumni-management-system
 npm install
 
-2. Create the database
+# 2. Create the database
 Open Laragon → Start MySQL → click Root Terminal and run:
 
 CREATE DATABASE IF NOT EXISTS alumni_system;
 Or use phpMyAdmin / any MySQL client.
 
-3. Configure environment
+# 3. Configure environment
 Create .env file and edit — ensure DATABASE_URL points to your MySQL instance:
 
 DATABASE_URL="mysql://root:@localhost:3306/alumni_system"
@@ -347,7 +385,7 @@ For Laragon, root with empty password is the default. If you use a password, inc
 
 OAuth setup: Create credentials in Google Cloud Console and Facebook Developers. Set authorized redirect URIs to http://localhost:3000/api/auth/callback/google and http://localhost:3000/api/auth/callback/facebook.
 
-4. Push schema and seed data
+# 4. Push schema and seed data
 npx prisma generate
 npx prisma db push
 npm install preact
@@ -356,7 +394,7 @@ Remove-Item -Recurse -Force .next
 npx prisma db seed
 This creates all tables, an officer account, 3 demo student/alumni accounts (for alumni-portal login testing), Help Center FAQs, and 3 progression tiers (Bronze, Silver, Gold) with 10 sample quests. Yearbooks and real graduate lists are not seeded — create yearbooks from the officer dashboard and sync graduates from the registrar.
 
-5. Start the dev server
+# 5. Start the dev server
 npm run dev
 Open http://localhost:3000 in your browser.
 
